@@ -18,7 +18,6 @@ struct ContentView: View {
 				NavigationLink {
 					CustomModifiersDemo()
 						.navigationTitle("Custom Modifiers")
-						.navigationSubtitle(".button(_ color: Color)")
 						.navigationBarTitleDisplayMode(.inline)
 				} label: {
 					HStack {

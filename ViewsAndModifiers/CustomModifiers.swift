@@ -7,36 +7,15 @@
 
 import SwiftUI
 
-/// An example custom modifier that wraps a view in a styled button.
-///
-/// The original content becomes the button's label. Tapping the button
-/// prints `"Hello, world!"` to the console.
-///
-/// ## Appearance
-///
-/// The label uses:
-/// - A large title font for content that supports it.
-/// - A white foreground style.
-/// - Default padding.
-/// - The background color supplied through ``bgColor``.
-/// - A capsule clipping shape.
-///
-/// Apply this modifier directly with `modifier(QuickButton(bgColor: .blue))`,
-/// or use the `button(_:)` convenience method defined on `View`.
 struct QuickButton: ViewModifier {
-	/// The background color applied to the button label.
 	let bgColor: Color
 
-	/// Wraps the supplied content in a styled button.
-	///
-	/// - Parameter content: The content receiving this modifier.
-	/// - Returns: A button whose label contains the styled content.
 	func body(content: Content) -> some View {
 		Button {
 			print("Hello, world!")
 		} label: {
 			content
-				.font(.largeTitle)
+				.font(.headline.bold())
 				.foregroundStyle(.white)
 				.padding()
 				.background(bgColor)
@@ -46,22 +25,6 @@ struct QuickButton: ViewModifier {
 }
 
 extension View {
-	/// Wraps this view in a button with a styled label.
-	///
-	/// This convenience method applies ``QuickButton`` to the view,
-	/// allowing content such as text or an image to become a button label.
-	///
-	/// Tapping the button prints `"Hello, world!"` to the console.
-	///
-	/// ## Usage
-	///
-	/// ```swift
-	/// Text("Hello, World!")
-	///     .button(.blue)
-	/// ```
-	///
-	/// - Parameter color: The button label's background color.
-	/// - Returns: A button containing this view as its styled label.
 	func button(_ color: Color = .blue) -> some View {
 		modifier(QuickButton(bgColor: color))
 	}
@@ -70,37 +33,82 @@ extension View {
 struct CustomModifiersDemo: View {
 	var body: some View {
 		VStack {
-			DemoCardView(".button() is a custom view modifier that wraps the view in a button with a styled label. Its color parameter defaults to blue. In this example, the modifier is being applied to text and image views.")
-			Spacer()
-			VStack {
-				Text("Pay")
-					.button()
-				Text("Discard")
-					.button(.red)
-				Text("Accept")
-					.button(.green)
+			List {
+				Section(".button(_:)"){
+					Text("A custom view modifier that wraps the view in a button with a styled label. Its color parameter defaults to blue.")
+				}
+				Section("Text Examples") {
+					HStack {
+						Spacer()
+						Text("Add")
+						Spacer()
+						Text("Add")
+							.button()
+						Spacer()
+					}
+					HStack {
+						Spacer()
+						Text("Decline")
+						Spacer()
+						Text("Decline")
+							.button(.red)
+						Spacer()
+					}
+					HStack {
+						Spacer()
+						Text("Accept")
+						Spacer()
+						Text("Accept")
+							.button(.green)
+						Spacer()
+					}
+				}
+				
+				Section("Image Examples") {
+					HStack {
+						Spacer()
+						Image(systemName: "person")
+							.resizable()
+							.scaledToFit()
+							.frame(width: 20)
+						Spacer()
+						Image(systemName: "person")
+							.resizable()
+							.scaledToFit()
+							.frame(width: 20)
+							.button()
+						Spacer()
+					}
+					HStack {
+						Spacer()
+						Image(systemName: "trash")
+							.resizable()
+							.scaledToFit()
+							.frame(width: 20)
+						Spacer()
+						Image(systemName: "trash")
+							.resizable()
+							.scaledToFit()
+							.frame(width: 20)
+							.button(.red)
+						Spacer()
+					}
+					HStack {
+						Spacer()
+						Image(systemName: "plus")
+							.resizable()
+							.scaledToFit()
+							.frame(width: 20)
+						Spacer()
+						Image(systemName: "plus")
+							.resizable()
+							.scaledToFit()
+							.frame(width: 20)
+							.button(.green)
+						Spacer()
+					}
+				}
 			}
-			.padding()
-			HStack {
-				Image(systemName: "person")
-					.resizable()
-					.scaledToFit()
-					.frame(width: 50, height: 50)
-					.button()
-				Image(systemName: "trash")
-					.resizable()
-					.scaledToFit()
-					.frame(width: 50, height: 50)
-					.button(.red)
-				Image(systemName: "plus")
-					.resizable()
-					.scaledToFit()
-					.frame(width: 50, height: 50)
-					.button(.green)
-			}
-			.padding()
-			Spacer()
-			Spacer()
 		}
 	}
 }
