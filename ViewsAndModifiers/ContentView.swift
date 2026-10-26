@@ -12,7 +12,18 @@ struct ContentView: View {
 		NavigationView {
 			List {
 				Section {
-					Text("These are my implementations of the techniques covered by Paul Hudson in Project 3 - Views and Modifers from his 100 Days of SwiftUI course.")
+					Text("These are summaries of topics and implementations of the techniques covered by Paul Hudson in \"Views and Modifers\" from his 100 Days of SwiftUI course.")
+				}
+				
+				NavigationLink {
+					StructsForViews()
+						.navigationTitle("Structs For Views")
+						.navigationBarTitleDisplayMode(.inline)
+				} label: {
+					HStack {
+						Image(systemName: "rectangle.3.offgrid")
+						Text("Structs For Views")
+					}
 				}
 				
 				NavigationLink {
